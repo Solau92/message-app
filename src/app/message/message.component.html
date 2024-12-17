@@ -1,0 +1,38 @@
+<p>message works!</p>
+
+<div class="message-container">
+
+    <div class="connexion">
+        <input [(ngModel)]="email" placeholder="Entrez votre email" />
+        <button (click)="connect()">Connexion</button>
+        <button (click)="deconnect()">Deconnexion</button>
+      </div>
+
+    <h2>Tchat</h2>
+    <ul>
+      <div *ngFor="let messagedto of messages">
+
+        <div *ngIf="sender(messagedto.email)">
+            <div class="message-from">
+                Message from you : <br>
+                {{ messagedto.content }}
+            </div>
+        </div>
+
+        <div *ngIf="!sender(messagedto.email)">
+            <div class="message-to">
+            Message from {{ messagedto.senderFullName}} : <br>
+            {{ messagedto.content }}
+        </div>
+        </div>
+
+        <!-- Message from {{ messagedto.recipientFullName}} : 
+        {{ messagedto.content }} -->
+
+      </div>
+    </ul>
+    <div class="new-message">
+      <input [(ngModel)]="newMessage" placeholder="Écrire un message" />
+      <button (click)="sendMessage()">Envoyer</button>
+    </div>
+  </div>
