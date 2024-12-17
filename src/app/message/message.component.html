@@ -4,30 +4,31 @@
 
     <div class="connexion">
         <input [(ngModel)]="email" placeholder="Entrez votre email" />
-        <button (click)="connect()">Connexion</button>
-        <button (click)="deconnect()">Deconnexion</button>
+        <button (click)="connect(email)">Connexion</button>
+        <button (click)="deconnect(email)">Deconnexion</button>
       </div>
 
     <h2>Tchat</h2>
     <ul>
       <div *ngFor="let messagedto of messages">
 
-        <div *ngIf="sender(messagedto.email)">
+        <!-- <div *ngIf="sender(messagedto.senderEmail)">
             <div class="message-from">
                 Message from you : <br>
                 {{ messagedto.content }}
             </div>
         </div>
 
-        <div *ngIf="!sender(messagedto.email)">
+        <div *ngIf="!sender(messagedto.senderEmail)">
             <div class="message-to">
             Message from {{ messagedto.senderFullName}} : <br>
             {{ messagedto.content }}
         </div>
+        </div> -->
+        <div class="message-to">
+        Message from {{ messagedto.senderFullName}} : 
+        {{ messagedto.content }}
         </div>
-
-        <!-- Message from {{ messagedto.recipientFullName}} : 
-        {{ messagedto.content }} -->
 
       </div>
     </ul>

@@ -46,48 +46,85 @@ export class MessageComponent implements OnInit {
   //     );
   // }
 
-  getMessages(): void {
-    this.http.get<Messagedto[]>('http://localhost:8080/conversation')
+  // getMessages(): void {
+  //   this.http.get<Messagedto[]>('http://localhost:8080/conversation')
+  //     .subscribe(
+  //       (data) => this.messages = data,
+  //       (error) => console.error('Error fetching messages', error)
+  //     );
+  // }
+
+  getMessages(email: string): void {
+  this.http.get<Messagedto[]>('http://localhost:8080/conversation/' + email)
       .subscribe(
         (data) => this.messages = data,
         (error) => console.error('Error fetching messages', error)
       );
   }
 
+  // sendMessage(): void {
+  //   if (this.newMessage.trim()) {
+  //     const message = { content: this.newMessage };
+  //     this.http.post('http://localhost:8080/message/send', message)
+  //       .subscribe(
+  //         () => {
+  //           this.newMessage = '';
+  //           this.getMessages();
+  //         },
+  //         (error) => console.error('Error sending message', error)
+  //       );
+  //   }
+  // }
+
   sendMessage(): void {
     if (this.newMessage.trim()) {
-      const message = { content: this.newMessage };
+      const message = { content: this.newMessage, senderEmail: this.email };
       this.http.post('http://localhost:8080/message/send', message)
         .subscribe(
           () => {
+            this.getMessages(this.email);
             this.newMessage = '';
-            this.getMessages();
+            this.refreshMessages(); // ?
           },
           (error) => console.error('Error sending message', error)
         );
     }
   }
 
-  connect(): void {
+  // connect(): void {
+  //   if (this.email.trim()) {
+  //     const email = { content: this.email };
+  //     this.http.post('http://localhost:8080/connect', email)
+  //       .subscribe(
+  //         () => {
+  //           this.getMessages();
+  //         },
+  //         (error) => console.error('Error connecting', error)
+  //       );
+  //   }
+  // }
+
+  connect(email: string): void {
     if (this.email.trim()) {
-      const email = { content: this.email };
       this.http.post('http://localhost:8080/connect', email)
         .subscribe(
           () => {
-            this.getMessages();
+            this.email = email;
+            this.getMessages(email);
           },
           (error) => console.error('Error connecting', error)
         );
     }
   }
 
-  deconnect(): void {
+  deconnect(email: string): void {
     if (this.email.trim()) {
       const email = { content: this.email };
       this.http.post('http://localhost:8080/deconnect', email)
         .subscribe(
           () => {
-            this.getMessages();
+            this.email = 'deconnect';
+            this.getMessages('deconnect');
           },
           (error) => console.error('Error connecting', error)
         );
@@ -95,11 +132,11 @@ export class MessageComponent implements OnInit {
   }
 
   // TODO : à remettre 
-  // refreshMessages(): void {
-  //   setInterval(() => {
-  //     this.getMessages();
-  //   }, 5000); // Actualise toutes les 5 secondes
-  // }
+  refreshMessages(): void {
+    setInterval(() => {
+      this.getMessages(this.email);
+    }, 5000); // Actualise toutes les 5 secondes
+  }
 
   // TODO 
   sender(email: string): boolean {

@@ -4,5 +4,5 @@ export class Messagedto {
     recipientId!: number;
     senderFullName!: string;
     recipientFullName!: string;
-    email!: string;
+    senderEmail!: string;
 }
