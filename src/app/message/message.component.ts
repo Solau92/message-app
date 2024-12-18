@@ -123,7 +123,7 @@ export class MessageComponent implements OnInit {
       this.http.post('http://localhost:8080/deconnect', email)
         .subscribe(
           () => {
-            this.email = 'deconnect';
+            this.email = '';
             this.getMessages('deconnect');
           },
           (error) => console.error('Error connecting', error)
