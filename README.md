@@ -41,7 +41,7 @@ Run the `nmp start` command.
 
 And navigate to http://localhost:4200 in two different browsers.  
 
-You can connect in one with the following email : email@client.com, and in the other one with the following email : email@client.com. 
+You can connect in one with the following email : email@client.com, and in the other one with the following email : emailservice@client.com. 
 
 You can send and receive messages ! 
 
